@@ -2,7 +2,14 @@
 
 ## Client
 
-`TODO`
+```sh
+cd client
+npm install
+npm run install-microfrontends
+npm run start
+```
+
+Main Frontend: http://localhost:3000
 
 ## Server
 

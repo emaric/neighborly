@@ -1,0 +1,32 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "deploy:auth": "npm run deploy --prefix auth-app",
+    "deploy:business": "npm run deploy --prefix business-app",
+    "deploy:comment": "npm run deploy --prefix comment-app",
+    "deploy:event": "npm run deploy --prefix event-app",
+    "deploy:resident": "npm run deploy --prefix resident-app",
+    "deploy:ai": "npm run deploy --prefix ai-app",
+    "start:shell": "wait-on tcp:3001 tcp:3002 tcp:3003 tcp:3004 tcp:3005 tcp:3006 && npm run dev --prefix shell-app",
+    "start": "npm-run-all --parallel deploy:* start:shell",
+    "install:ai": "npm install --prefix ai-app",
+    "install:auth": "npm install --prefix auth-app",
+    "install:business": "npm install --prefix business-app",
+    "install:comment": "npm install --prefix comment-app",
+    "install:event": "npm install --prefix event-app",
+    "install:resident": "npm install --prefix resident-app",
+    "install:shell": "npm install --prefix shell-app",
+    "install-microfrontends": "npm-run-all --parallel install:*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "wait-on": "^8.0.3"
+  }
+}
