@@ -1,0 +1,42 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "gateway.js",
+  "type": "module",
+  "scripts": {
+    "start:ms:auth": "node ./microservices/auth-service/server.js",
+    "start:ms:business": "node ./microservices/business-service/server.js",
+    "start:ms:comment": "node ./microservices/comment-service/server.js",
+    "start:ms:event": "node ./microservices/event-service/server.js",
+    "start:ms:resident": "node ./microservices/resident-service/server.js",
+    "start:ms:ai": "node ./microservices/ai-service/server.js",
+    "start:msall": "npm-run-all --parallel start:ms:*",
+    "start:gateway": "wait-on tcp:4001 tcp:4002 tcp:4003 tcp:4004 tcp:4005 tcp:4006 && node ./gateway.js",
+    "start": "npm-run-all --parallel start:msall start:gateway",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@apollo/federation": "^0.38.1",
+    "@apollo/gateway": "^2.10.0",
+    "@apollo/server": "^4.11.3",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "npm-run-all": "^4.1.5",
+    "wait-on": "^8.0.3"
+  }
+}
