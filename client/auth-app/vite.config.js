@@ -14,6 +14,9 @@ export default defineConfig({
       filename: "remoteEntry.js",
       exposes: {
         "./TestAllComponents": "./src/App",
+        "./LoginComponent": "./src/components/LoginComponent",
+        "./SignUpComponent": "./src/components/SignUpComponent",
+        "./LogoutComponent": "./src/components/LogoutComponent",
       },
       shared: ["react", "react-dom", "@apollo/client"],
     }),
