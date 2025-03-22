@@ -1,0 +1,19 @@
+.post-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits text to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3rem; /* Adjust based on font-size */
+  }
+  
+  .post-link {
+    text-decoration: none;
+    color: #007bff; /* Bootstrap primary color */
+    font-weight: bold;
+  }
+  
+  .post-link:hover {
+    text-decoration: underline;
+  }
+  

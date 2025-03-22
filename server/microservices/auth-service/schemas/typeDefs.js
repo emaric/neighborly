@@ -2,6 +2,7 @@ import { gql } from "graphql-tag";
 
 const typeDefs = gql`
   type User {
+    id: ID!
     username: String!
     role: String!
     token: String
@@ -9,6 +10,7 @@ const typeDefs = gql`
 
   type Query {
     verify: User
+    getUser(id: ID!): User
   }
 
   type Mutation {

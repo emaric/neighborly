@@ -26,6 +26,15 @@ const userResolvers = {
       }
       return user;
     },
+    getUser: async (_, { id }) => {
+      const user = await User.findById(id);
+      if (!user) {
+        throw new GraphQLError("User not found", {
+          extensions: { code: "USER_NOT_FOUND" },
+        });
+      }
+      return user.toJSON();
+    },
   },
   Mutation: {
     signup: async (_, args, { user }) => {

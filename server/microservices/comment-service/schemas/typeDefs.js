@@ -12,6 +12,7 @@ const typeDefs = gql`
 
   type Query {
     getCommentsByParentId(parentId: String!): [Comment]
+    getCommentCountByParentId(parentId: String!): Int
   }
 
   type Mutation {
