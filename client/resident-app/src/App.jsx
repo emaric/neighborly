@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<PostListComponent />} />
-          <Route path="/post/:postId" element={<PostRoute />} />
+          <Route path="/posts/:postId" element={<PostRoute />} />
         </Routes>
       </Router>
     </div>

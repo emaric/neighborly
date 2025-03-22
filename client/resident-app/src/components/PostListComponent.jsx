@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, Container, Row, Col, Badge, Spinner } from "react-bootstrap";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 const GET_POSTS = gql`
   query GetPosts {
@@ -32,7 +33,6 @@ function PostListComponent() {
   const { error, data, loading } = useQuery(GET_POSTS);
   const [posts, setPosts] = useState([]);
 
-  // useLazyQuery for user and comment count
   const [fetchUser] = useLazyQuery(GET_USER);
   const [fetchCommentCount] = useLazyQuery(GET_COMMENT_COUNT);
 
@@ -40,16 +40,14 @@ function PostListComponent() {
     if (error) {
       setPosts([]);
     } else if (data?.getPosts) {
-      // Initialize posts with placeholders
       const initialPosts = data.getPosts.map((post) => ({
         ...post,
         user: { username: "Loading..." }, // Placeholder
         comment_count: 0, // Placeholder
-        link: `/post/${post.id}`,
+        link: `/posts/${post.id}`, // Corrected link format
       }));
       setPosts(initialPosts);
 
-      // Fetch user and comment count for each post
       initialPosts.forEach((post) => {
         fetchUser({ variables: { userId: post.userId } }).then(({ data }) => {
           if (data?.getUser) {
@@ -94,9 +92,9 @@ function PostListComponent() {
             <Card className="h-100 shadow-sm">
               <Card.Body>
                 <Card.Title>
-                  <a href={post.link} className="post-link">
+                  <Link to={post.link} className="post-link">
                     {post.title}
-                  </a>
+                  </Link>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   By <strong>{post.user.username}</strong>
@@ -105,9 +103,10 @@ function PostListComponent() {
               </Card.Body>
               <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
                 <small>{new Date(post.createdAt).toLocaleDateString()}</small>
-                <Badge bg="secondary">
-                  <a href={post.link}>{post.comment_count} comments</a>
-                </Badge>
+                {/* Badge is now a clickable link */}
+                <Link to={post.link} className="text-decoration-none">
+                  <Badge bg="secondary">{post.comment_count} comments</Badge>
+                </Link>
               </Card.Footer>
             </Card>
           </Col>
