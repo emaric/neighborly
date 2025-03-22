@@ -37,6 +37,7 @@ UserSchema.methods.comparePassword = function (password) {
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
   delete userObject.password;
+  userObject.id = userObject._id;
   return userObject;
 };
 

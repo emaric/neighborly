@@ -9,10 +9,22 @@ import { FRONTEND_URI, RESIDENT_PORT } from "../../common/config.js";
 import { authMiddleware } from "../../common/authMiddleware.js";
 import connectToDatabase from "../../common/mongoose.js";
 import typeDefs from "./schemas/typeDefs.js";
-import resolvers from "./resolvers/resident.resolvers.js";
+import residentResolvers from "./resolvers/resident.resolvers.js";
+import postResolvers from "./resolvers/post.resolvers.js";
 import { formatServiceLog } from "../../common/utils.js";
 
 connectToDatabase();
+
+const resolvers = {
+  Query: {
+    ...residentResolvers.Query,
+    ...postResolvers.Query,
+  },
+  Mutation: {
+    ...residentResolvers.Mutation,
+    ...postResolvers.Mutation,
+  },
+};
 
 const server = new ApolloServer({
   schema: buildFederatedSchema([{ typeDefs, resolvers }]),

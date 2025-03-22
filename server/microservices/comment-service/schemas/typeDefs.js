@@ -3,17 +3,21 @@ import { gql } from "graphql-tag";
 const typeDefs = gql`
   type Comment {
     id: ID!
-    userID: String!
+    parentId: String!
+    content: String!
+    userId: String!
     createdAt: String
     updatedAt: String
   }
 
   type Query {
-    test: String!
+    getCommentsByParentId(parentId: String!): [Comment]
   }
 
   type Mutation {
-    test(text: String!): String!
+    createComment(parentId: String!, content: String!): Comment!
+    updateComment(id: ID!, content: String!): Comment!
+    deleteComment(id: ID!): Comment
   }
 `;
 

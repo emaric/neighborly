@@ -3,17 +3,26 @@ import { gql } from "graphql-tag";
 const typeDefs = gql`
   type Resident {
     id: ID!
-    userID: String!
+    userId: String!
+    createdAt: String
+    updatedAt: String
+  }
+
+  type Post {
+    id: ID!
+    title: String!
+    content: String
+    userId: String!
     createdAt: String
     updatedAt: String
   }
 
   type Query {
-    test: String!
+    getPosts: [Post!]
   }
 
   type Mutation {
-    test(text: String!): String!
+    createPost(title: String!, content: String): Post!
   }
 `;
 

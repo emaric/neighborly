@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const CommentSchema = new mongoose.Schema(
   {
-    // TODO:
+    parentId: { type: String, required: true, trim: true },
+    content: { type: String, required: true, trim: true },
     userId: { type: String, required: true, trim: true },
   },
   { timestamps: true }
