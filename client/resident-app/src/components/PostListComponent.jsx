@@ -45,6 +45,7 @@ function PostListComponent() {
         ...post,
         user: { username: "Loading..." }, // Placeholder
         comment_count: 0, // Placeholder
+        link: `/post/${post.id}`,
       }));
       setPosts(initialPosts);
 
@@ -93,7 +94,7 @@ function PostListComponent() {
             <Card className="h-100 shadow-sm">
               <Card.Body>
                 <Card.Title>
-                  <a href="#" className="post-link">
+                  <a href={post.link} className="post-link">
                     {post.title}
                   </a>
                 </Card.Title>
@@ -104,7 +105,9 @@ function PostListComponent() {
               </Card.Body>
               <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
                 <small>{new Date(post.createdAt).toLocaleDateString()}</small>
-                <Badge bg="secondary">{post.comment_count} comments</Badge>
+                <Badge bg="secondary">
+                  <a href={post.link}>{post.comment_count} comments</a>
+                </Badge>
               </Card.Footer>
             </Card>
           </Col>

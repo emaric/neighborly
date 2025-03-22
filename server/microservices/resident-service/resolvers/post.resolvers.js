@@ -1,3 +1,4 @@
+import { get } from "mongoose";
 import Post from "../models/post.model.js";
 
 const postResolvers = {
@@ -5,6 +6,10 @@ const postResolvers = {
     getPosts: async () => {
       const posts = await Post.find();
       return posts;
+    },
+    getPost: async (_, { id }) => {
+      const post = await Post.findById(id);
+      return post;
     },
   },
   Mutation: {
