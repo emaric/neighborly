@@ -19,9 +19,9 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <AuthApp />
         <BusinessApp />
-        <CommentApp />
         <EventApp />
         <ResidentApp />
+        <CommentApp />
         <AIApp />
       </Suspense>
     </>
