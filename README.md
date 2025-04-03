@@ -20,3 +20,9 @@ npm run start
 ```
 
 API Gateway: http://localhost:4000/graphql
+
+## To stop all
+
+```sh
+taskkill /F /IM node.exe
+```

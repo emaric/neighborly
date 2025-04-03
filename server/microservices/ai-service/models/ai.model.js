@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const AISchema = new mongoose.Schema(
   {
-    // TODO:
+    postId: { type: String, required: true, trim: true, unique: true },
+    summary: { type: String, required: true },
     userId: { type: String, required: true, trim: true },
   },
   { timestamps: true }

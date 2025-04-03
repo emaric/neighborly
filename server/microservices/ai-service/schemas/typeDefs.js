@@ -14,6 +14,7 @@ const typeDefs = gql`
 
   type Mutation {
     test(text: String!): String!
+    summarizePost(postId: String!, force: Boolean): String!
   }
 `;
 

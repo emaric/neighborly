@@ -16,3 +16,7 @@ export const SECRET_KEY = process.env.JWT_SECRET || "jwt-secret-key";
 export const MONGO_URI =
   process.env.MONGO_URI ||
   "mongodb+srv://admin:jfx26xC4iFVRI6LQ@cluster0.b0dbv.mongodb.net/groupproject";
+
+export const GEMINI_API_KEY =
+  process.env.GEMINI_API_KEY || "your-gemini-api-key";
+export const GEMINI_MODEL = "gemini-2.0-flash";
