@@ -18,7 +18,7 @@ export default defineConfig({
         "./SignUpComponent": "./src/components/SignUpComponent",
         "./LogoutComponent": "./src/components/LogoutComponent",
       },
-      shared: ["react", "react-dom", "@apollo/client"],
+      shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),
     {
       name: "custom-logger",

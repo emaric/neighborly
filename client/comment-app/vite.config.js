@@ -17,7 +17,7 @@ export default defineConfig({
         "./CommentListComponent": "./src/components/CommentListComponent",
         "./PostRoute": "./src/routes/PostRoute",
       },
-      shared: ["react", "react-dom", "@apollo/client"],
+      shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),
     {
       name: "custom-logger",

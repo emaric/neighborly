@@ -15,7 +15,7 @@ export default defineConfig({
       exposes: {
         "./TestAllComponents": "./src/App",
       },
-      shared: ["react", "react-dom", "@apollo/client"],
+      shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),
     {
       name: "custom-logger",
