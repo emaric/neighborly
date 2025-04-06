@@ -20,9 +20,7 @@ function PostComponent({ post }) {
           <Card.Text className="mt-3">{post.content}</Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
-          <small>
-            Posted on {new Date(post.createdAt).toLocaleDateString()}
-          </small>
+          <small>Posted on {new Date(post.createdAt).toLocaleString()}</small>
           <Badge bg="secondary">{post.comment_count} comments</Badge>
         </Card.Footer>
       </Card>

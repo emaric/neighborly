@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:server": "npm start --prefix server",
+    "start:client": "npm start --prefix client",
+    "start": "npm-run-all --parallel start:*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Vinhcognito/Group5COMP308Project/issues"
   },
-  "homepage": "https://github.com/Vinhcognito/Group5COMP308Project#readme"
+  "homepage": "https://github.com/Vinhcognito/Group5COMP308Project#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
 }

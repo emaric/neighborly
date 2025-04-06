@@ -1,30 +1,74 @@
-import { lazy, Suspense } from "react";
-import { AuthProvider } from "./contexts/AuthContext";
-import UserDetailsComponent from "./components/UserDetailsComponent";
+import { lazy, Suspense, useContext } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import NavBar from "./components/Layout/NavBar";
+import TestAllComponents from "./pages/TestAllComponents";
+import HomePage from "./pages/HomePage";
+
 import "./App.css";
-const AuthApp = lazy(() => import("authApp/TestAllComponents"));
-const BusinessApp = lazy(() => import("businessApp/TestAllComponents"));
-const CommentApp = lazy(() => import("commentApp/TestAllComponents"));
-const EventApp = lazy(() => import("eventApp/TestAllComponents"));
-const ResidentApp = lazy(() => import("residentApp/TestAllComponents"));
-const AIApp = lazy(() => import("aiApp/TestAllComponents"));
+import ProtectedRoute from "./components/ProtectedRoute";
+import AuthContext from "./contexts/AuthContext";
+import LoginComponent from "./components/LoginComponent";
+import PostPage from "./pages/PostPage";
+
+const LogoutComponent = lazy(() => import("authApp/LogoutComponent"));
+const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
+
+const Layout = ({ children }) => (
+  <ProtectedRoute>
+    <NavBar />
+    <main>{children}</main>
+  </ProtectedRoute>
+);
 
 function App() {
+  const { refetch } = useContext(AuthContext);
+
   return (
-    <>
-      <h1>Creddit</h1>
-      <AuthProvider>
-        <UserDetailsComponent />
-      </AuthProvider>
-      <Suspense fallback={<div>Loading...</div>}>
-        <AuthApp />
-        <BusinessApp />
-        <EventApp />
-        <ResidentApp />
-        <CommentApp />
-        <AIApp />
-      </Suspense>
-    </>
+    <Router>
+      <Container fluid className="p-0">
+        <Routes>
+          <Route path="/test" element={<TestAllComponents />} />
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <HomePage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/posts"
+            element={
+              <Layout>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <PostListComponent />
+                </Suspense>
+              </Layout>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <Layout>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LogoutComponent onComplete={refetch} />
+                </Suspense>
+              </Layout>
+            }
+          />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route
+            path="/posts/:postId"
+            element={
+              <Layout>
+                <PostPage />
+              </Layout>
+            }
+          />
+        </Routes>
+      </Container>
+    </Router>
   );
 }
 

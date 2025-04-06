@@ -23,7 +23,7 @@ export default defineConfig({
         residentApp: remoteEntryURL(3005),
         aiApp: remoteEntryURL(3006),
       },
-      shared: ["react", "react-dom", "@apollo/client"],
+      shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),
     {
       name: "custom-logger",

@@ -1,8 +1,8 @@
-import AI from "../models/ai.model.js";
+import PostSummary from "../models/postsummary.model.js";
 import { runPrompt } from "../gemini.js";
 import { getPostDetails } from "../postdetails-service.js";
 
-async function getSummary(postId) {
+async function generateSummary(postId) {
   const postDetails = await getPostDetails(postId);
   const summary = await runPrompt(
     `Summarize this post: ${JSON.stringify(postDetails)}`
@@ -16,6 +16,13 @@ const aiResolvers = {
       const answer = await runPrompt("What is the meaning of life?");
       return answer;
     },
+    getPostSummary: async (_, { postId }, { user }) => {
+      if (!user) {
+        throw new Error("Unathorized request");
+      }
+      const postSummary = await PostSummary.findOne({ postId });
+      return postSummary;
+    },
   },
   Mutation: {
     test: async (_, { text }, { user }) => {
@@ -25,16 +32,16 @@ const aiResolvers = {
       if (!user) {
         throw new Error("Unathorized request");
       }
-      const savedAI = await AI.findOne({ postId });
-      const existingSummary = savedAI?.summary;
+      const existingPostSummary = await PostSummary.findOne({ postId });
+      const existingSummary = existingPostSummary?.summary;
       if (force || !existingSummary) {
-        const summary = await getSummary(postId);
-        const ai = await AI.findOneAndUpdate(
+        const summary = await generateSummary(postId);
+        const postSummary = await PostSummary.findOneAndUpdate(
           { postId },
           { summary, userId: user.id },
           { new: true, upsert: true }
         );
-        return ai.summary;
+        return postSummary;
       }
 
       return existingSummary;

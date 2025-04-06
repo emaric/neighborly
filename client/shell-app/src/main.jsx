@@ -8,6 +8,8 @@ import {
 } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App.jsx";
+import ThemeProvider from "./contexts/ThemeProvider.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 const link = createHttpLink({
   uri: "http://localhost:4000/graphql",
@@ -21,8 +23,11 @@ const client = new ApolloClient({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <ThemeProvider />
     <ApolloProvider client={client}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ApolloProvider>
   </StrictMode>
 );

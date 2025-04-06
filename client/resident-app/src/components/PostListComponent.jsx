@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, Container, Row, Col, Badge, Spinner } from "react-bootstrap";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 
 const GET_POSTS = gql`
   query GetPosts {
