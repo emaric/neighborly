@@ -26,9 +26,7 @@ function PostPage() {
     <Container className="mt-5">
       <Suspense fallback={<Loader />}>
         <Post />
-        <Container className="mt-4 mb-4">
-          <GenerateSummaryComponent postId={postId} />
-        </Container>
+        <GenerateSummaryComponent postId={postId} />
         <Container>
           <CreateCommentComponent
             parentId={postId}

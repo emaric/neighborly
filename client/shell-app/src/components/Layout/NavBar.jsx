@@ -14,7 +14,7 @@ const NavBar = () => {
             Home
           </Nav.Link>
           <Nav.Link as={Link} to="/posts">
-            Posts
+            News / Discussions
           </Nav.Link>
           <Nav.Link as={Link} to="/logout">
             Logout
