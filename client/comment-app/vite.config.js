@@ -15,6 +15,7 @@ export default defineConfig({
       exposes: {
         "./TestAllComponents": "./src/App",
         "./CommentListComponent": "./src/components/CommentListComponent",
+        "./CreateCommentComponent": "./src/components/CreateCommentComponent",
         "./PostRoute": "./src/routes/PostRoute",
       },
       shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],

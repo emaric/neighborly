@@ -52,7 +52,7 @@ const commentResolvers = {
       if (comment.userId !== user.id) {
         throw new Error("Not authorized");
       }
-      await comment.remove();
+      await comment.deleteOne();
       return comment;
     },
   },

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useQuery, useLazyQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import { Card, Button, Spinner } from "react-bootstrap";
+import CreateCommentComponent from "./CreateCommentComponent";
 
 const GET_COMMENTS = gql`
   query getCommentsByParentId($parentId: String!) {
@@ -29,42 +30,82 @@ const GET_USER = gql`
   }
 `;
 
-const CommentListComponent = ({ parentId }) => {
+const DELETE_COMMENT = gql`
+  mutation DeleteComment($commentId: ID!) {
+    deleteComment(id: $commentId) {
+      id
+    }
+  }
+`;
+
+const CommentListComponent = ({ parentId, user }) => {
   const { data, loading, error, refetch } = useQuery(GET_COMMENTS, {
     variables: { parentId },
   });
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     refetch();
   }, [parentId, refetch]);
+
+  useEffect(() => {
+    if (data?.getCommentsByParentId) {
+      setComments(data.getCommentsByParentId);
+    }
+  }, [data]);
 
   if (loading) return <Spinner animation="border" />;
   if (error) return <p className="text-danger">Error loading comments.</p>;
 
   return (
     <>
-      {data?.getCommentsByParentId.map((comment) => (
-        <CommentItem key={comment.id} comment={comment} />
+      {comments.map((comment) => (
+        <CommentItem
+          key={comment.id}
+          comment={comment}
+          user={user}
+          onDelete={() => {
+            setComments((c) => [...c.filter((c) => c.id !== comment.id)]);
+          }}
+        />
       ))}
     </>
   );
 };
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment, user, onDelete }) => {
   const [showReplies, setShowReplies] = useState(false);
-  const [fetchReplies, { data, loading }] = useLazyQuery(GET_COMMENTS);
-  const { data: countData } = useQuery(GET_COMMENT_COUNT, {
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const {
+    data: countData,
+    refetch: refetchReplyCount,
+    loading: loadingReplyCount,
+  } = useQuery(GET_COMMENT_COUNT, {
     variables: { parentId: comment.id },
   });
   const { data: userData } = useQuery(GET_USER, {
     variables: { userId: comment.userId },
   });
+  const [deleteComment, { loading: loadingDelete }] = useMutation(
+    DELETE_COMMENT,
+    {
+      variables: { commentId: comment.id },
+    }
+  );
 
   const handleShowReplies = () => {
-    if (!showReplies) {
-      fetchReplies({ variables: { parentId: comment.id } });
-    }
     setShowReplies(!showReplies);
+  };
+
+  const handleToggleReply = () => {
+    setShowReplyForm(!showReplyForm);
+  };
+
+  const handleDelete = () => {
+    deleteComment();
+    if (onDelete) {
+      onDelete();
+    }
   };
 
   return (
@@ -75,26 +116,68 @@ const CommentItem = ({ comment }) => {
         </Card.Title>
         <Card.Text>{comment.content}</Card.Text>
         <small className="text-muted">
-          {new Date(comment.createdAt).toLocaleString()}
+          {new Date(Number(comment.createdAt)).toLocaleString()}
         </small>
-        {countData?.getCommentCountByParentId > 0 && (
+
+        <div className="d-flex gap-2 mt-2">
+          {loadingReplyCount && (
+            <Spinner size="sm" animation="border" as="span" />
+          )}
+          {!loadingReplyCount && countData?.getCommentCountByParentId > 0 && (
+            <Button
+              variant="link"
+              onClick={handleShowReplies}
+              className="p-0 ms-2"
+              disabled={loadingDelete}
+            >
+              {countData.getCommentCountByParentId} Replies
+            </Button>
+          )}
           <Button
+            disabled={loadingDelete}
             variant="link"
-            onClick={handleShowReplies}
-            className="p-0 ms-2"
+            onClick={handleToggleReply}
+            className="p-0"
           >
-            {countData.getCommentCountByParentId} Replies
+            {showReplyForm ? "Cancel Reply" : "Reply"}
           </Button>
+
+          {user?.id === comment.userId && (
+            <Button
+              variant="link"
+              onClick={handleDelete}
+              className="p-0 text-danger"
+              disabled={loadingDelete}
+            >
+              Delete
+              {loadingDelete && (
+                <Spinner size="sm" animation="border" as="span" />
+              )}
+            </Button>
+          )}
+        </div>
+
+        {showReplyForm && (
+          <div className="mt-2 ms-3 border-start ps-2">
+            <CreateCommentComponent
+              parentId={comment.id}
+              onSuccess={() => {
+                setShowReplyForm(false);
+                refetchReplyCount();
+              }}
+            />
+          </div>
         )}
+
         {showReplies && (
           <div className="mt-2 ms-3 border-start ps-2">
-            {loading ? (
-              <Spinner animation="border" size="sm" />
-            ) : (
-              <div className="ps-2">
-                <CommentListComponent parentId={comment.id} />
-              </div>
-            )}
+            <div className="ps-2">
+              <CommentListComponent
+                parentId={comment.id}
+                user={user}
+                onDelete={() => refetchReplyCount()}
+              />
+            </div>
           </div>
         )}
       </Card.Body>

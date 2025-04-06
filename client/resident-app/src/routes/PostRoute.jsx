@@ -44,8 +44,8 @@ const PostRoute = () => {
     if (data?.getPost) {
       const fetchedPost = {
         ...data.getPost,
-        user: { username: "Loading..." }, // Placeholder for user
-        comment_count: 0, // Placeholder for comments
+        user: { username: "Loading..." },
+        comment_count: 0,
       };
 
       setPost(fetchedPost);

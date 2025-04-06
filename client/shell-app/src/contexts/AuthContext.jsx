@@ -4,6 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 const VERIFY = gql`
   query Verify {
     verify {
+      id
       username
       role
     }
