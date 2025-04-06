@@ -20,7 +20,9 @@ function PostComponent({ post, loadingCommentCount }) {
           <Card.Text className="mt-3">{post.content}</Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
-          <small>Posted on {new Date(post.createdAt).toLocaleString()}</small>
+          <small>
+            Posted on {new Date(Number(post.createdAt)).toLocaleString()}
+          </small>
           <Badge bg="secondary">
             {loadingCommentCount ? (
               <Spinner

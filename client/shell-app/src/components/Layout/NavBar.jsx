@@ -1,5 +1,5 @@
-import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -13,9 +13,17 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/">
             Home
           </Nav.Link>
-          <Nav.Link as={Link} to="/posts">
-            News / Discussions
-          </Nav.Link>
+
+          <NavDropdown title="News / Discussions" align="end">
+            <NavDropdown.Item as={NavLink} to="/posts">
+              View Posts
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item as={NavLink} to="/posts/new">
+              Create Post
+            </NavDropdown.Item>
+          </NavDropdown>
+
           <Nav.Link as={Link} to="/logout">
             Logout
           </Nav.Link>

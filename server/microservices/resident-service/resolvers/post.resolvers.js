@@ -1,11 +1,11 @@
-import { get } from "mongoose";
 import Post from "../models/post.model.js";
 
 const postResolvers = {
   Query: {
     getPosts: async () => {
       const posts = await Post.find();
-      return posts;
+      const _posts = posts.map((post) => ({ ...post.toJSON() }));
+      return _posts;
     },
     getPost: async (_, { id }) => {
       const post = await Post.findById(id);

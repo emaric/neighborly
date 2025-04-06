@@ -17,6 +17,7 @@ export default defineConfig({
         "./PostListComponent": "./src/components/PostListComponent",
         "./PostComponent": "./src/components/PostComponent",
         "./PostRoute": "./src/routes/PostRoute",
+        "./CreatePostComponent": "./src/components/CreatePostComponent",
       },
       shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),

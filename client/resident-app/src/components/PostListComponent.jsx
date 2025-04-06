@@ -8,7 +8,7 @@ const GET_POSTS = gql`
     getPosts {
       id
       title
-      content
+      contentPreview
       userId
       createdAt
     }
@@ -100,10 +100,14 @@ function PostListComponent() {
                 <Card.Subtitle className="mb-2 text-muted">
                   By <strong>{post.user.username}</strong>
                 </Card.Subtitle>
-                <Card.Text className="post-content">{post.content}</Card.Text>
+                <Card.Text className="post-content">
+                  {post.contentPreview}
+                </Card.Text>
               </Card.Body>
               <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
-                <small>{new Date(post.createdAt).toLocaleString()}</small>
+                <small>
+                  {new Date(Number(post.createdAt)).toLocaleString()}
+                </small>
                 <Link to={post.link} className="text-decoration-none">
                   <Badge bg="secondary">
                     {loadingCommentCount ? (

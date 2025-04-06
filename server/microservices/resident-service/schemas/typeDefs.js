@@ -12,6 +12,7 @@ const typeDefs = gql`
     id: ID!
     title: String!
     content: String
+    contentPreview: String
     userId: String!
     createdAt: String
     updatedAt: String

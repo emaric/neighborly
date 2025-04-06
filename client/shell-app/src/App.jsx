@@ -13,6 +13,9 @@ import PostPage from "./pages/PostPage";
 
 const LogoutComponent = lazy(() => import("authApp/LogoutComponent"));
 const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
+const CreatePostComponent = lazy(() =>
+  import("residentApp/CreatePostComponent")
+);
 
 const Layout = ({ children }) => (
   <ProtectedRoute>
@@ -43,6 +46,19 @@ function App() {
               <Layout>
                 <Suspense fallback={<div>Loading...</div>}>
                   <PostListComponent />
+                </Suspense>
+              </Layout>
+            }
+          />
+          <Route
+            path="/posts/new"
+            element={
+              <Layout>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Container>
+                    <h2>Create Post</h2>
+                    <CreatePostComponent />
+                  </Container>
                 </Suspense>
               </Layout>
             }

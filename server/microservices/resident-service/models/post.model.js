@@ -14,8 +14,11 @@ PostSchema.methods.toJSON = function () {
   return {
     ...postObject,
     id: postObject._id,
-    createdAt: postObject.createdAt.toISOString(),
-    updatedAt: postObject.updatedAt.toISOString(),
+    contentPreview: postObject.content
+      ? postObject.content.length > 100
+        ? postObject.content.substring(0, 100) + "..."
+        : postObject.content
+      : null,
   };
 };
 
