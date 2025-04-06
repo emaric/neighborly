@@ -37,7 +37,8 @@ const PostRoute = () => {
 
   const [post, setPost] = useState(null);
   const [fetchUser] = useLazyQuery(GET_USER);
-  const [fetchCommentCount] = useLazyQuery(GET_COMMENT_COUNT);
+  const [fetchCommentCount, { loading: loadingCommentCount }] =
+    useLazyQuery(GET_COMMENT_COUNT);
 
   useEffect(() => {
     if (data?.getPost) {
@@ -76,7 +77,9 @@ const PostRoute = () => {
   if (error) return <p>Error loading post.</p>;
   if (!post) return <p>Post not found.</p>;
 
-  return <PostComponent post={post} />;
+  return (
+    <PostComponent post={post} loadingCommentCount={loadingCommentCount} />
+  );
 };
 
 export default PostRoute;

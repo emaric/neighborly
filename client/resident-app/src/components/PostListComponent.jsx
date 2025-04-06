@@ -34,7 +34,8 @@ function PostListComponent() {
   const [posts, setPosts] = useState([]);
 
   const [fetchUser] = useLazyQuery(GET_USER);
-  const [fetchCommentCount] = useLazyQuery(GET_COMMENT_COUNT);
+  const [fetchCommentCount, { loading: loadingCommentCount }] =
+    useLazyQuery(GET_COMMENT_COUNT);
 
   useEffect(() => {
     if (error) {
@@ -42,9 +43,9 @@ function PostListComponent() {
     } else if (data?.getPosts) {
       const initialPosts = data.getPosts.map((post) => ({
         ...post,
-        user: { username: "Loading..." }, // Placeholder
-        comment_count: 0, // Placeholder
-        link: `/posts/${post.id}`, // Corrected link format
+        user: { username: "Loading..." },
+        comment_count: 0,
+        link: `/posts/${post.id}`,
       }));
       setPosts(initialPosts);
 
@@ -102,10 +103,23 @@ function PostListComponent() {
                 <Card.Text className="post-content">{post.content}</Card.Text>
               </Card.Body>
               <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
-                <small>{new Date(post.createdAt).toLocaleDateString()}</small>
-                {/* Badge is now a clickable link */}
+                <small>{new Date(post.createdAt).toLocaleString()}</small>
                 <Link to={post.link} className="text-decoration-none">
-                  <Badge bg="secondary">{post.comment_count} comments</Badge>
+                  <Badge bg="secondary">
+                    {loadingCommentCount ? (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        style={{ width: "0.8rem", height: "0.8rem" }}
+                        role="status"
+                        aria-hidden="true"
+                        className="me-1"
+                      />
+                    ) : (
+                      post.comment_count
+                    )}{" "}
+                    comments
+                  </Badge>
                 </Link>
               </Card.Footer>
             </Card>
