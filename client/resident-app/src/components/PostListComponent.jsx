@@ -34,8 +34,7 @@ function PostListComponent() {
   const [posts, setPosts] = useState([]);
 
   const [fetchUser] = useLazyQuery(GET_USER);
-  const [fetchCommentCount, { loading: loadingCommentCount }] =
-    useLazyQuery(GET_COMMENT_COUNT);
+  const [fetchCommentCount] = useLazyQuery(GET_COMMENT_COUNT);
 
   useEffect(() => {
     if (error) {
@@ -43,8 +42,8 @@ function PostListComponent() {
     } else if (data?.getPosts) {
       const initialPosts = data.getPosts.map((post) => ({
         ...post,
-        user: { username: "Loading..." },
-        comment_count: 0,
+        user: { username: null },
+        comment_count: null,
         link: `/posts/${post.id}`,
       }));
       setPosts(initialPosts);
@@ -98,7 +97,21 @@ function PostListComponent() {
                   </Link>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
-                  By <strong>{post.user.username}</strong>
+                  By{" "}
+                  <strong>
+                    {post.user.username == null ? (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        style={{ width: "0.8rem", height: "0.8rem" }}
+                        role="status"
+                        aria-hidden="true"
+                        className="me-1"
+                      />
+                    ) : (
+                      post.user.username
+                    )}
+                  </strong>
                 </Card.Subtitle>
                 <Card.Text className="post-content">
                   {post.contentPreview}
@@ -110,7 +123,7 @@ function PostListComponent() {
                 </small>
                 <Link to={post.link} className="text-decoration-none">
                   <Badge bg="secondary">
-                    {loadingCommentCount ? (
+                    {post.comment_count == null ? (
                       <Spinner
                         as="span"
                         animation="border"
