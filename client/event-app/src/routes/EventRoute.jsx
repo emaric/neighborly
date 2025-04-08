@@ -26,12 +26,6 @@ const GET_USER = gql`
   }
 `;
 
-const GET_COMMENT_COUNT = gql`
-  query GetCommentCount($parentId: String!) {
-    getCommentCountByParentId(parentId: $parentId)
-  }
-`;
-
 const EventRoute = () => {
   const { eventId } = useParams();
   const { data, loading, error } = useQuery(GET_EVENT, {
@@ -40,8 +34,6 @@ const EventRoute = () => {
 
   const [event, setEvent] = useState(null);
   const [fetchUser, { loading: loadingUser }] = useLazyQuery(GET_USER);
-  const [fetchCommentCount, { loading: loadingCommentCount }] =
-    useLazyQuery(GET_COMMENT_COUNT);
 
   useEffect(() => {
     if (data?.getEvent) {
@@ -60,31 +52,14 @@ const EventRoute = () => {
           }
         }
       );
-
-      fetchCommentCount({ variables: { parentId: data.getEvent.id } }).then(
-        ({ data }) => {
-          if (data?.getCommentCountByParentId !== undefined) {
-            setEvent((prev) => ({
-              ...prev,
-              comment_count: data.getCommentCountByParentId || 0,
-            }));
-          }
-        }
-      );
     }
-  }, [data, fetchUser, fetchCommentCount]);
+  }, [data, fetchUser]);
 
   if (loading) return <p>Loading event...</p>;
   if (error) return <p>Error loading event.</p>;
   if (!event) return <p>Event not found.</p>;
 
-  return (
-    <EventComponent
-      event={event}
-      loadingCommentCount={loadingCommentCount}
-      loadingUser={loadingUser}
-    />
-  );
+  return <EventComponent event={event} loadingUser={loadingUser} />;
 };
 
 export default EventRoute;

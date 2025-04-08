@@ -1,18 +1,9 @@
 import React from "react";
-import {
-  Card,
-  ListGroup,
-  Button,
-  Row,
-  Col,
-  Spinner,
-  Badge,
-} from "react-bootstrap";
+import { Card, ListGroup, Button, Row, Col, Spinner } from "react-bootstrap";
 
 const EventComponent = ({
   event,
   loadingUser,
-  loadingCommentCount,
   canVolunteer,
   handleVolunteer,
 }) => {
@@ -71,21 +62,6 @@ const EventComponent = ({
 
       <Card.Footer className="text-muted d-flex justify-content-between align-items-center small">
         Created on {new Date(Number(event.createdAt)).toLocaleDateString()}
-        <Badge bg="secondary">
-          {loadingCommentCount ? (
-            <Spinner
-              as="span"
-              animation="border"
-              style={{ width: "0.8rem", height: "0.8rem" }}
-              role="status"
-              aria-hidden="true"
-              className="me-1"
-            />
-          ) : (
-            event.comment_count
-          )}{" "}
-          comments
-        </Badge>
       </Card.Footer>
     </Card>
   );

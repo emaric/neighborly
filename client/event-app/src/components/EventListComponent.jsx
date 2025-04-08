@@ -139,23 +139,6 @@ const EventListComponent = () => {
               </Card.Body>
               <Card.Footer className="text-muted d-flex justify-content-between align-items-center small">
                 Created on {new Date(Number(event.createdAt)).toLocaleString()}
-                <Link to={event.link} className="text-decoration-none">
-                  <Badge bg="secondary">
-                    {event.comment_count == null ? (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        style={{ width: "0.8rem", height: "0.8rem" }}
-                        role="status"
-                        aria-hidden="true"
-                        className="me-1"
-                      />
-                    ) : (
-                      event.comment_count
-                    )}{" "}
-                    comments
-                  </Badge>
-                </Link>
               </Card.Footer>
             </Card>
           </Col>
