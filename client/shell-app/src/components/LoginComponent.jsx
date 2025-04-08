@@ -1,6 +1,7 @@
 import { lazy, Suspense, useContext } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import Loader from "./UI/Loader";
 
 const AuthLoginComponent = lazy(() => import("authApp/LoginComponent"));
 
@@ -20,7 +21,7 @@ function LoginComponent() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <AuthLoginComponent onSuccess={handleLoginSuccess} />
     </Suspense>
   );

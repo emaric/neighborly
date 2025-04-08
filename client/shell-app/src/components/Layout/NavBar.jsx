@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext";
 
 const NavBar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <Navbar className="p-2 bg-dark-subtle" expand="lg">
       <Navbar.Brand as={Link} to="/">
@@ -23,10 +26,15 @@ const NavBar = () => {
               Create Post
             </NavDropdown.Item>
           </NavDropdown>
-
-          <Nav.Link as={Link} to="/logout">
-            Logout
-          </Nav.Link>
+          {!!user ? (
+            <Nav.Link as={Link} to="/logout">
+              Logout
+            </Nav.Link>
+          ) : (
+            <Nav.Link as={Link} to="/login">
+              Login
+            </Nav.Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

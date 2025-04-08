@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AuthContext from "./contexts/AuthContext";
 import LoginComponent from "./components/LoginComponent";
 import PostPage from "./pages/PostPage";
+import Loader from "./components/UI/Loader";
 
 const LogoutComponent = lazy(() => import("authApp/LogoutComponent"));
 const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
@@ -18,10 +19,10 @@ const CreatePostComponent = lazy(() =>
 );
 
 const Layout = ({ children }) => (
-  <ProtectedRoute>
+  <>
     <NavBar />
     <main>{children}</main>
-  </ProtectedRoute>
+  </>
 );
 
 function App() {
@@ -35,51 +36,66 @@ function App() {
           <Route
             path="/"
             element={
-              <Layout>
-                <HomePage />
-              </Layout>
+              <ProtectedRoute>
+                <Layout>
+                  <HomePage />
+                </Layout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/posts"
             element={
-              <Layout>
-                <Suspense fallback={<div>Loading...</div>}>
-                  <PostListComponent />
-                </Suspense>
-              </Layout>
+              <ProtectedRoute>
+                <Layout>
+                  <Suspense fallback={<Loader />}>
+                    <PostListComponent />
+                  </Suspense>
+                </Layout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/posts/new"
             element={
-              <Layout>
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Container>
-                    <h2>Create Post</h2>
-                    <CreatePostComponent />
-                  </Container>
-                </Suspense>
-              </Layout>
+              <ProtectedRoute>
+                <Layout>
+                  <Suspense fallback={<Loader />}>
+                    <Container>
+                      <h2>Create Post</h2>
+                      <CreatePostComponent />
+                    </Container>
+                  </Suspense>
+                </Layout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/logout"
             element={
               <Layout>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loader />}>
                   <LogoutComponent onComplete={refetch} />
                 </Suspense>
               </Layout>
             }
           />
-          <Route path="/login" element={<LoginComponent />} />
+          <Route
+            path="/login"
+            element={
+              <Layout>
+                <LoginComponent />
+              </Layout>
+            }
+          />
           <Route
             path="/posts/:postId"
             element={
-              <Layout>
-                <PostPage />
-              </Layout>
+              <ProtectedRoute>
+                <Layout>
+                  <PostPage />
+                </Layout>
+              </ProtectedRoute>
             }
           />
         </Routes>
