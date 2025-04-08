@@ -11,6 +11,7 @@ import AuthContext from "./contexts/AuthContext";
 import LoginComponent from "./components/LoginComponent";
 import PostPage from "./pages/PostPage";
 import Loader from "./components/UI/Loader";
+import EventPage from "./pages/EventPage";
 
 const LogoutComponent = lazy(() => import("authApp/LogoutComponent"));
 const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
@@ -82,7 +83,17 @@ function App() {
                 </Layout>
               </ProtectedRoute>
             }
-          ></Route>
+          />
+          <Route
+            path="/events/:eventId"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EventPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/logout"
             element={

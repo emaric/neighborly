@@ -15,6 +15,8 @@ export default defineConfig({
       exposes: {
         "./TestAllComponents": "./src/App",
         "./EventListComponent": "./src/components/EventListComponent",
+        "./EventComponent": "./src/components/EventComponent",
+        "./EventRoute": "./src/routes/EventRoute",
       },
       shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),
