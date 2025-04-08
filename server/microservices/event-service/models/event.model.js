@@ -2,8 +2,12 @@ import mongoose from "mongoose";
 
 const EventSchema = new mongoose.Schema(
   {
-    // TODO:
+    title: { type: String, required: true, trim: true },
+    description: { type: String },
+    datetime: { type: Date, required: true },
+    location: { type: String, required: true, trim: true },
     userId: { type: String, required: true, trim: true },
+    volunteers: { type: [String], default: [] },
   },
   { timestamps: true }
 );
@@ -13,8 +17,8 @@ EventSchema.methods.toJSON = function () {
   return {
     ...eventObject,
     id: eventObject._id,
-    createdAt: eventObject.createdAt.toISOString(),
-    updatedAt: eventObject.updatedAt.toISOString(),
+    createdAtISO: eventObject.createdAt.toISOString(),
+    updatedAtISO: eventObject.updatedAt.toISOString(),
   };
 };
 

@@ -14,6 +14,7 @@ export default defineConfig({
       filename: "remoteEntry.js",
       exposes: {
         "./TestAllComponents": "./src/App",
+        "./EventListComponent": "./src/components/EventListComponent",
       },
       shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),

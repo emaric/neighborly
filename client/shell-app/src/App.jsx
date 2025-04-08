@@ -17,6 +17,7 @@ const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
 const CreatePostComponent = lazy(() =>
   import("residentApp/CreatePostComponent")
 );
+const EventListComponent = lazy(() => import("eventApp/EventListComponent"));
 
 const Layout = ({ children }) => (
   <>
@@ -70,6 +71,18 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/events"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Suspense fallback={<Loader />}>
+                    <EventListComponent />
+                  </Suspense>
+                </Layout>
+              </ProtectedRoute>
+            }
+          ></Route>
           <Route
             path="/logout"
             element={

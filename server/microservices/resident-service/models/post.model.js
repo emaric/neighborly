@@ -19,6 +19,8 @@ PostSchema.methods.toJSON = function () {
         ? postObject.content.substring(0, 100) + "..."
         : postObject.content
       : null,
+    createdAtISO: postObject.createdAt?.toISOString(),
+    updatedAtISO: postObject.updatedAt?.toISOString(),
   };
 };
 

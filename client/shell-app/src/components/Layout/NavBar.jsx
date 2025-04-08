@@ -26,6 +26,11 @@ const NavBar = () => {
               Create Post
             </NavDropdown.Item>
           </NavDropdown>
+
+          <Nav.Link as={Link} to="/events">
+            Events
+          </Nav.Link>
+
           {!!user ? (
             <Nav.Link as={Link} to="/logout">
               Logout

@@ -16,6 +16,8 @@ const typeDefs = gql`
     userId: String!
     createdAt: String
     updatedAt: String
+    createdAtISO: String
+    updatedAtISO: String
   }
 
   type Query {
