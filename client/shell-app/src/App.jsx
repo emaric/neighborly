@@ -27,6 +27,16 @@ const Layout = ({ children }) => (
   </>
 );
 
+const PostListRoute = () => {
+  return (
+    <Layout>
+      <Suspense fallback={<Loader />}>
+        <PostListComponent />
+      </Suspense>
+    </Layout>
+  );
+};
+
 function App() {
   const { refetch } = useContext(AuthContext);
 
@@ -35,28 +45,8 @@ function App() {
       <Container fluid className="p-0">
         <Routes>
           <Route path="/test" element={<TestAllComponents />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <HomePage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/posts"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Suspense fallback={<Loader />}>
-                    <PostListComponent />
-                  </Suspense>
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<PostListRoute />} />
+          <Route path="/posts" element={<PostListRoute />} />
           <Route
             path="/posts/new"
             element={
@@ -75,13 +65,11 @@ function App() {
           <Route
             path="/events"
             element={
-              <ProtectedRoute>
-                <Layout>
-                  <Suspense fallback={<Loader />}>
-                    <EventListComponent />
-                  </Suspense>
-                </Layout>
-              </ProtectedRoute>
+              <Layout>
+                <Suspense fallback={<Loader />}>
+                  <EventListComponent />
+                </Suspense>
+              </Layout>
             }
           />
           <Route
