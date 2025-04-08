@@ -3,7 +3,7 @@ import Post from "../models/post.model.js";
 const postResolvers = {
   Query: {
     getPosts: async () => {
-      const posts = await Post.find();
+      const posts = await Post.find().sort({ updatedAt: -1 });
       const _posts = posts.map((post) => ({ ...post.toJSON() }));
       return _posts;
     },
