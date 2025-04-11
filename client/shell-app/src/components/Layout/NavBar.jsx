@@ -27,6 +27,34 @@ const NavBar = () => {
             Events
           </Nav.Link>
 
+          {user?.role === "Resident" && (
+            <>
+              <NavDropdown title="Help Requests" align="end">
+                <NavDropdown.Item as={NavLink} to="/help-requests">
+                  View Help Requests
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={NavLink} to="/help-requests/new">
+                  Create Help Request
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              <NavDropdown title="Emergency Alerts" align="end">
+                <NavDropdown.Item as={NavLink} to="/emergency-alerts">
+                  View Emergency Alerts
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={NavLink} to="/emergency-alerts/new">
+                  Create Emergency Alert
+                </NavDropdown.Item>
+              </NavDropdown>
+            </>
+          )}
+
+          {/* <Nav.Link as={Link} to="/help-emergency">
+            Help / Emergency
+          </Nav.Link> */}
+
           {!!user ? (
             <Nav.Link as={Link} to="/logout">
               Logout

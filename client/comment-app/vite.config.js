@@ -17,6 +17,8 @@ export default defineConfig({
         "./CommentListComponent": "./src/components/CommentListComponent",
         "./CreateCommentComponent": "./src/components/CreateCommentComponent",
         "./PostRoute": "./src/routes/PostRoute",
+        "./HelpRequestRoute": "./src/routes/HelpRequestRoute",
+        "./EmergencyAlertRoute": "./src/routes/EmergencyAlertRoute",
       },
       shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),

@@ -12,6 +12,12 @@ import LoginComponent from "./components/LoginComponent";
 import PostPage from "./pages/PostPage";
 import Loader from "./components/UI/Loader";
 import EventPage from "./pages/EventPage";
+//import HelpAndEmergencyPage from "./pages/HelpAndEmergencyPage";
+import HelpRequestPage from "./pages/HelpRequestPage";
+import EmergencyAlertPage from "./pages/EmergencyAlertPage";
+import EmergencyAlertListComponent from "../../resident-app/src/components/EmergencyAlertListComponent";
+import HelpRequestListComponent from "../../resident-app/src/components/HelpRequestListComponent";
+
 
 const LogoutComponent = lazy(() => import("authApp/LogoutComponent"));
 const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
@@ -19,6 +25,9 @@ const CreatePostComponent = lazy(() =>
   import("residentApp/CreatePostComponent")
 );
 const EventListComponent = lazy(() => import("eventApp/EventListComponent"));
+const CreateHelpRequestComponent = lazy(() => import("residentApp/CreateHelpRequestComponent"));
+const CreateEmergencyAlertComponent = lazy(() => import("residentApp/CreateEmergencyAlertComponent"));
+
 
 const Layout = ({ children }) => (
   <>
@@ -78,6 +87,86 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <EventPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route
+            path="/help-emergency"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <HelpAndEmergencyPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          /> */}
+          <Route
+            path="/help-requests"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <HelpRequestListComponent/>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/help-requests/new"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Container className="mt-5">
+                    <h2>Create Help Request</h2>
+                    <Suspense fallback={<Loader />}>
+                      <CreateHelpRequestComponent />
+                    </Suspense>
+                  </Container>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/help-requests/:helpRequestId"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <HelpRequestPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/emergency-alerts"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EmergencyAlertListComponent/>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/emergency-alerts/new"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Container className="mt-5">
+                    <h2>Create Emergency Alert</h2>
+                    <Suspense fallback={<Loader />}>
+                      <CreateEmergencyAlertComponent />
+                    </Suspense>
+                  </Container>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/emergency-alerts/:emergencyAlertId"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EmergencyAlertPage />
                 </Layout>
               </ProtectedRoute>
             }

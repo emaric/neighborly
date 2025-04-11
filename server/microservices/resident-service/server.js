@@ -11,6 +11,8 @@ import connectToDatabase from "../../common/mongoose.js";
 import typeDefs from "./schemas/typeDefs.js";
 import residentResolvers from "./resolvers/resident.resolvers.js";
 import postResolvers from "./resolvers/post.resolvers.js";
+import helpRequestResolvers from "./resolvers/helpReq.resolvers.js";
+import emergencyAlertResolvers from "./resolvers/emergAlert.resolvers.js";
 import { formatServiceLog } from "../../common/utils.js";
 
 connectToDatabase();
@@ -19,10 +21,14 @@ const resolvers = {
   Query: {
     ...residentResolvers.Query,
     ...postResolvers.Query,
+    ...helpRequestResolvers.Query,
+    ...emergencyAlertResolvers.Query,
   },
   Mutation: {
     ...residentResolvers.Mutation,
     ...postResolvers.Mutation,
+    ...helpRequestResolvers.Mutation,
+    ...emergencyAlertResolvers.Mutation,
   },
 };
 
