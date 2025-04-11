@@ -51,10 +51,6 @@ const NavBar = () => {
             </>
           )}
 
-          {/* <Nav.Link as={Link} to="/help-emergency">
-            Help / Emergency
-          </Nav.Link> */}
-
           {!!user ? (
             <Nav.Link as={Link} to="/logout">
               Logout

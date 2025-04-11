@@ -12,7 +12,7 @@ import LoginComponent from "./components/LoginComponent";
 import PostPage from "./pages/PostPage";
 import Loader from "./components/UI/Loader";
 import EventPage from "./pages/EventPage";
-//import HelpAndEmergencyPage from "./pages/HelpAndEmergencyPage";
+
 import HelpRequestPage from "./pages/HelpRequestPage";
 import EmergencyAlertPage from "./pages/EmergencyAlertPage";
 import EmergencyAlertListComponent from "../../resident-app/src/components/EmergencyAlertListComponent";
@@ -91,16 +91,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/help-emergency"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <HelpAndEmergencyPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          /> */}
           <Route
             path="/help-requests"
             element={
