@@ -27,7 +27,7 @@ export default defineConfig({
         residentApp: remoteEntryURLFromRender("https://neighborly-resident.onrender.com"),
         aiApp: remoteEntryURLFromRender("https://neighborly-ai.onrender.com"),
       },
-      shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
+      shared: ["react", "react-dom", "react-router-dom", "@apollo/client", "react-bootstrap"],
     }),
     {
       name: "custom-logger",
