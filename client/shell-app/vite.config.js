@@ -41,4 +41,7 @@ export default defineConfig({
   server: {
     port: PORT,
   },
+  build: {
+    target: "esnext",
+  }
 });
