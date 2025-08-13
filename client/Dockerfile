@@ -16,17 +16,10 @@ COPY resident-app ./resident-app
 COPY shell-app ./shell-app
 
 # Install dependencies for all microfrontends
-RUN npm install -g npm-run-all wait-on \
-    && npm run install-microfrontends
+RUN npm install && npm run install-microfrontends
 
 # Build all microfrontends
-RUN npm run deploy:ai \
-    && npm run deploy:auth \
-    && npm run deploy:business \
-    && npm run deploy:comment \
-    && npm run deploy:event \
-    && npm run deploy:resident \
-    && npm run deploy --prefix shell-app
+RUN npm run start
 
 # Stage 2: Serve built shell-app
 FROM node:20 AS runner
