@@ -9,6 +9,10 @@ function remoteEntryURL(port) {
   return `http://localhost:${port}/assets/remoteEntry.js`;
 }
 
+function remoteEntryURLFromRender(url) {
+  return `${url}/assets/remoteEntry.js`;
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -16,12 +20,12 @@ export default defineConfig({
     federation({
       name: APP_NAME,
       remotes: {
-        authApp: remoteEntryURL(3001),
-        businessApp: remoteEntryURL(3002),
-        commentApp: remoteEntryURL(3003),
-        eventApp: remoteEntryURL(3004),
-        residentApp: remoteEntryURL(3005),
-        aiApp: remoteEntryURL(3006),
+        authApp: remoteEntryURLFromRender("https://neighborly-auth.onrender.com"),
+        businessApp: remoteEntryURLFromRender("https://neighborly-business.onrender.com"),
+        commentApp: remoteEntryURLFromRender("https://neighborly-comment.onrender.com"),
+        eventApp: remoteEntryURLFromRender("https://neighborly-event.onrender.com"),
+        residentApp: remoteEntryURLFromRender("https://neighborly-resident.onrender.com"),
+        aiApp: remoteEntryURLFromRender("https://neighborly-ai.onrender.com"),
       },
       shared: ["react", "react-dom", "react-router-dom", "@apollo/client"],
     }),

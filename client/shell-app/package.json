@@ -7,16 +7,19 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server.js"
   },
   "dependencies": {
     "@apollo/client": "^3.13.4",
     "bootstrap": "^5.3.3",
     "client": "file:..",
+    "express": "^5.1.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.3.0"
+    "react-router-dom": "^7.3.0",
+    "serve-static": "^2.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
