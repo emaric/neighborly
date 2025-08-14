@@ -11,6 +11,6 @@ const app = express();
 app.use(cors({ origin: '*' })); // or specify shell app origin
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.listen(process.env.PORT || 3005, () => {
-  console.log(`Remote running on port ${process.env.PORT || 3005}`);
+app.listen(process.env.PORT || 3003, () => {
+  console.log(`Remote running on port ${process.env.PORT || 3003}`);
 });
