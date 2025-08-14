@@ -36,12 +36,12 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
 
 const gateway = new ApolloGateway({
   serviceList: [
-    { name: "auth", url: `http://localhost:${AUTH_PORT}/graphql` },
-    { name: "business", url: `http://localhost:${BUSINESS_PORT}/graphql` },
-    { name: "comment", url: `http://localhost:${COMMENT_PORT}/graphql` },
-    { name: "event", url: `http://localhost:${EVENT_PORT}/graphql` },
-    { name: "resident", url: `http://localhost:${RESIDENT_PORT}/graphql` },
-    { name: "ai", url: `http://localhost:${AI_PORT}/graphql` },
+    { name: "auth", url: process.env.AUTH_URL || `http://localhost:${AUTH_PORT}/graphql` },
+    { name: "business", url: process.env.BUSINESS_URL || `http://localhost:${BUSINESS_PORT}/graphql` },
+    { name: "comment", url: process.env.COMMENT_URL || `http://localhost:${COMMENT_PORT}/graphql` },
+    { name: "event", url: process.env.EVENT_URL || `http://localhost:${EVENT_PORT}/graphql` },
+    { name: "resident", url: process.env.RESIDENT_URL || `http://localhost:${RESIDENT_PORT}/graphql` },
+    { name: "ai", url: process.env.AI_URL || `http://localhost:${AI_PORT}/graphql` },
   ],
   buildService({ url }) {
     return new AuthenticatedDataSource({ url });
