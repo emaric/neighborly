@@ -47,8 +47,7 @@ app.use(
   })
 );
 
-app.listen(AUTH_PORT, async () => {
-  console.log(
-    formatServiceLog("Auth", `http://localhost:${AUTH_PORT}/graphql`)
-  );
+const auth_port = process.env.PORT || AUTH_PORT
+app.listen(auth_port, async () => {
+  console.log(formatServiceLog("Auth", `http://localhost:${auth_port}/graphql`));
 });

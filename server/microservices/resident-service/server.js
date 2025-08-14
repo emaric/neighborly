@@ -57,8 +57,7 @@ app.use(
   })
 );
 
-app.listen(RESIDENT_PORT, async () => {
-  console.log(
-    formatServiceLog("Resident", `http://localhost:${RESIDENT_PORT}/graphql`)
-  );
+const resident_port = process.env.PORT || RESIDENT_PORT
+app.listen(resident_port, async () => {
+  console.log(formatServiceLog("Resident", `http://localhost:${resident_port}/graphql`));
 });

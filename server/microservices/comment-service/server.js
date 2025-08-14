@@ -39,8 +39,7 @@ app.use(
   })
 );
 
-app.listen(COMMENT_PORT, async () => {
-  console.log(
-    formatServiceLog("Comment", `http://localhost:${COMMENT_PORT}/graphql`)
-  );
+const comment_port = process.env.PORT || COMMENT_PORT
+app.listen(comment_port, async () => {
+  console.log(formatServiceLog("Comment", `http://localhost:${comment_port}/graphql`));
 });

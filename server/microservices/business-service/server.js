@@ -39,8 +39,7 @@ app.use(
   })
 );
 
-app.listen(BUSINESS_PORT, async () => {
-  console.log(
-    formatServiceLog("Business", `http://localhost:${BUSINESS_PORT}/graphql`)
-  );
+const business_port = process.env.PORT || BUSINESS_PORT
+app.listen(business_port, async () => {
+  console.log(formatServiceLog("Business", `http://localhost:${business_port}/graphql`));
 });

@@ -39,8 +39,7 @@ app.use(
   })
 );
 
-app.listen(EVENT_PORT, async () => {
-  console.log(
-    formatServiceLog("Event", `http://localhost:${EVENT_PORT}/graphql`)
-  );
+const event_port = process.env.PORT || EVENT_PORT
+app.listen(event_port, async () => {
+  console.log(formatServiceLog("Event", `http://localhost:${event_port}/graphql`));
 });

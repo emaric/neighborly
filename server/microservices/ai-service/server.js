@@ -39,6 +39,7 @@ app.use(
   })
 );
 
-app.listen(AI_PORT, async () => {
-  console.log(formatServiceLog("AI", `http://localhost:${AI_PORT}/graphql`));
+const ai_port = process.env.PORT || AI_PORT
+app.listen(ai_port, async () => {
+  console.log(formatServiceLog("AI", `http://localhost:${ai_port}/graphql`));
 });
