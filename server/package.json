@@ -12,6 +12,7 @@
     "start:ms:ai": "node ./microservices/ai-service/server.js",
     "start:msall": "npm-run-all --parallel start:ms:*",
     "start:gateway": "wait-on tcp:4001 tcp:4002 tcp:4003 tcp:4004 tcp:4005 tcp:4006 && node ./gateway.js",
+    "start:onrender": "wait-on https://neighborly-auth-api.onrender.com https://neighborly-business-api.onrender.com https://neighborly-comment-api.onrender.com https://neighborly-event-api.onrender.com https://neighborly-resident-api.onrender.com https://neighborly-ai-api.onrender.com && node ./gateway.js",
     "start": "npm-run-all --parallel start:msall start:gateway",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
