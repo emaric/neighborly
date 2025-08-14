@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App.jsx";
 
 const link = createHttpLink({
-  uri: "https://neighborly-app-api.onrender.com",
+  uri: "https://neighborly-app-api.onrender.com/graphql",
   credentials: "include",
 });
 
