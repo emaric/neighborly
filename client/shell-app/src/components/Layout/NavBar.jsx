@@ -8,7 +8,7 @@ const NavBar = () => {
   return (
     <Navbar className="p-2 bg-dark-subtle" expand="lg">
       <Navbar.Brand as={Link} to="/">
-        Creddit
+        Neighborly
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
