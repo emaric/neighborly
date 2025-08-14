@@ -10,6 +10,9 @@ export const generateToken = (user) => {
 export const setCookieToken = (res, token) => {
   res.cookie("token", token, {
     httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    domain: 'neighborly-app-api.onrender.com'
   });
 };
 
