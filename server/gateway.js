@@ -86,7 +86,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: FRONTEND_URI,
+    origin: "*",
     credentials: true,
   })
 );
