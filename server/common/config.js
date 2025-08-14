@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
 
-export const FRONTEND_URI = "http://localhost:3000";
+export const FRONTEND_URI = "https://neighborly-app.onrender.com";
 
 export const GATEWAY_PORT = 4000;
 export const AUTH_PORT = 4001;
