@@ -40,6 +40,13 @@ export default defineConfig({
   ],
   server: {
     port: PORT,
+    proxy: {
+      "/api": {
+        target: "https://neighborly-app-api.onrender.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, "")
+      }
+    }
   },
   build: {
     target: "esnext",

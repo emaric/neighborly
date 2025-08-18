@@ -12,7 +12,7 @@ import ThemeProvider from "./contexts/ThemeProvider.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 const link = createHttpLink({
-  uri: "https://neighborly-app-api.onrender.com/graphql",
+  uri: "/api/graphql",
   credentials: "include",
 });
 
