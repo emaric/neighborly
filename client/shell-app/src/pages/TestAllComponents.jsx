@@ -11,7 +11,7 @@ const AIApp = lazy(() => import("aiApp/TestAllComponents"));
 function TestAllComponents() {
   return (
     <>
-      <h1>Creddit</h1>
+      <h1>Neighborly</h1>
       <UserDetailsComponent />
       <Suspense fallback={<div>Loading...</div>}>
         <AuthApp />

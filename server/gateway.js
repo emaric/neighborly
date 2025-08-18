@@ -1,7 +1,7 @@
 import express from "express";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServer } from "@apollo/server";
-import { ApolloGateway, RemoteGraphQLDataSource } from "@apollo/gateway";
+import { ApolloGateway, IntrospectAndCompose, RemoteGraphQLDataSource } from "@apollo/gateway";
 import cors from "cors";
 import { authMiddleware } from "./common/authMiddleware.js";
 import cookieParser from "cookie-parser";
@@ -35,17 +35,19 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
 }
 
 const gateway = new ApolloGateway({
-  serviceList: [
-    { name: "auth", url: process.env.AUTH_URL || `http://localhost:${AUTH_PORT}/graphql` },
-    { name: "business", url: process.env.BUSINESS_URL || `http://localhost:${BUSINESS_PORT}/graphql` },
-    { name: "comment", url: process.env.COMMENT_URL || `http://localhost:${COMMENT_PORT}/graphql` },
-    { name: "event", url: process.env.EVENT_URL || `http://localhost:${EVENT_PORT}/graphql` },
-    { name: "resident", url: process.env.RESIDENT_URL || `http://localhost:${RESIDENT_PORT}/graphql` },
-    { name: "ai", url: process.env.AI_URL || `http://localhost:${AI_PORT}/graphql` },
-  ],
+  supergraphSdl: new IntrospectAndCompose({
+    subgraphs: [
+      { name: "auth", url: process.env.AUTH_URL || `http://localhost:${AUTH_PORT}/graphql` },
+      { name: "business", url: process.env.BUSINESS_URL || `http://localhost:${BUSINESS_PORT}/graphql` },
+      { name: "comment", url: process.env.COMMENT_URL || `http://localhost:${COMMENT_PORT}/graphql` },
+      { name: "event", url: process.env.EVENT_URL || `http://localhost:${EVENT_PORT}/graphql` },
+      { name: "resident", url: process.env.RESIDENT_URL || `http://localhost:${RESIDENT_PORT}/graphql` },
+      { name: "ai", url: process.env.AI_URL || `http://localhost:${AI_PORT}/graphql` },
+    ],
+  }),
   buildService({ url }) {
     return new AuthenticatedDataSource({ url });
-  },
+  }
 });
 
 const server = new ApolloServer({

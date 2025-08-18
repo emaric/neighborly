@@ -1,4 +1,4 @@
-# Creddit
+# Neighborly
 
 ## Client
 
