@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { buildFederatedSchema } from "@apollo/federation";
+import { buildSubgraphSchema } from "@apollo/federation";
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -33,7 +33,7 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  schema: buildFederatedSchema([{ typeDefs, resolvers }]),
+  schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
 });
 
 await server.start();

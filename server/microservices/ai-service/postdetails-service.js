@@ -1,8 +1,8 @@
 import { GraphQLClient, gql } from "graphql-request";
 import { COMMENT_PORT, RESIDENT_PORT } from "../../common/config.js";
 
-const postServiceUrl = `http://localhost:${RESIDENT_PORT}/graphql`;
-const commentServiceUrl = `http://localhost:${COMMENT_PORT}/graphql`;
+const postServiceUrl = process.env.RESIDENT_URL || `http://localhost:${RESIDENT_PORT}/graphql`;
+const commentServiceUrl = process.env.COMMENT_URL || `http://localhost:${COMMENT_PORT}/graphql`;
 
 const postClient = new GraphQLClient(postServiceUrl);
 const commentClient = new GraphQLClient(commentServiceUrl);
