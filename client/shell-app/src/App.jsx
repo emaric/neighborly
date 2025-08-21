@@ -20,6 +20,7 @@ import HelpRequestListComponent from "../../resident-app/src/components/HelpRequ
 
 
 const LogoutComponent = lazy(() => import("authApp/LogoutComponent"));
+const SignUpComponent = lazy(() => import("authApp/SignUpComponent"));
 const PostListComponent = lazy(() => import("residentApp/PostListComponent"));
 const CreatePostComponent = lazy(() =>
   import("residentApp/CreatePostComponent")
@@ -32,7 +33,7 @@ const CreateEmergencyAlertComponent = lazy(() => import("residentApp/CreateEmerg
 const Layout = ({ children }) => (
   <>
     <NavBar />
-    <main>{children}</main>
+    <main className="mt-4">{children}</main>
   </>
 );
 
@@ -176,6 +177,14 @@ function App() {
             element={
               <Layout>
                 <LoginComponent />
+              </Layout>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Layout>
+                <SignUpComponent />
               </Layout>
             }
           />

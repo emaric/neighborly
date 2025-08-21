@@ -1,19 +1,21 @@
 import { useContext } from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
   return (
-    <Navbar className="p-2 bg-dark-subtle" expand="lg">
-      <Navbar.Brand as={Link} to="/">
-        Neighborly
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <NavDropdown title="News / Discussions" align="end">
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container fluid>
+        <Navbar.Brand href="/">Neighborly</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            navbarScroll
+          >
+            <NavDropdown title="News / Discussions" align="end">
             <NavDropdown.Item as={NavLink} to="/posts">
               View Posts
             </NavDropdown.Item>
@@ -50,18 +52,19 @@ const NavBar = () => {
               </NavDropdown>
             </>
           )}
-
-          {!!user ? (
-            <Nav.Link as={Link} to="/logout">
-              Logout
-            </Nav.Link>
-          ) : (
-            <Nav.Link as={Link} to="/login">
-              Login
-            </Nav.Link>
-          )}
-        </Nav>
-      </Navbar.Collapse>
+          </Nav>
+          <>
+            {!!user ? (
+              <Button variant="outline-danger" href="/logout">Logout</Button>
+            ) : (
+              <div className="d-flex">
+                <Button variant="outline-success me-2" href="/login">Login</Button>
+                <Button variant="outline-primary" href="/signup">Join</Button>
+              </div>
+            )}
+          </>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
