@@ -13,7 +13,7 @@ import residentResolvers from "./resolvers/resident.resolvers.js";
 import postResolvers from "./resolvers/post.resolvers.js";
 import helpRequestResolvers from "./resolvers/helpReq.resolvers.js";
 import emergencyAlertResolvers from "./resolvers/emergAlert.resolvers.js";
-import { formatServiceLog } from "../../common/utils.js";
+import { formatServiceLog, healthCheck } from "../../common/utils.js";
 
 connectToDatabase();
 
@@ -56,6 +56,8 @@ app.use(
     },
   })
 );
+
+app.get('/health', healthCheck);
 
 const resident_port = process.env.PORT || RESIDENT_PORT
 app.listen(resident_port, async () => {

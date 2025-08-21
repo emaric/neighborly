@@ -10,7 +10,7 @@ import { authMiddleware } from "../../common/authMiddleware.js";
 import connectToDatabase from "../../common/mongoose.js";
 import typeDefs from "./schemas/typeDefs.js";
 import resolvers from "./resolvers/event.resolvers.js";
-import { formatServiceLog } from "../../common/utils.js";
+import { formatServiceLog, healthCheck } from "../../common/utils.js";
 
 connectToDatabase();
 
@@ -38,6 +38,8 @@ app.use(
     },
   })
 );
+
+app.get('/health', healthCheck);
 
 const event_port = process.env.PORT || EVENT_PORT
 app.listen(event_port, async () => {
