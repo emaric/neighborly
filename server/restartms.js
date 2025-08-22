@@ -1,6 +1,6 @@
 import { setTimeout } from "timers/promises";
 
-async function checkServiceWithRetry(url, maxRetries = 3, retryDelay = 10000) {
+async function checkServiceWithRetry(url, maxRetries = 6, retryDelay = 10000) {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
             console.log(`URL: ${url}...`)
