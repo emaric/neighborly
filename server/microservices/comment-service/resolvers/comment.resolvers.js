@@ -1,13 +1,10 @@
 import Comment from "../models/comment.model.js";
 
 const getNestedCommentCount = async (parentId) => {
-  // Count direct replies
-  const directReplies = await Comment.find({ parentId });
+  const directReplies = await Comment.find({ parentId }).sort({ createdAt: -1 });
 
-  // Base case: No replies found
   if (!directReplies.length) return 0;
 
-  // Recursively count replies for each direct reply
   let totalReplies = directReplies.length;
   for (const reply of directReplies) {
     totalReplies += await getNestedCommentCount(reply._id);
@@ -19,7 +16,7 @@ const getNestedCommentCount = async (parentId) => {
 const commentResolvers = {
   Query: {
     getCommentsByParentId: async (_, { parentId }) => {
-      const comments = await Comment.find({ parentId: parentId });
+      const comments = await Comment.find({ parentId: parentId }).sort({ createdAt: -1 });
       return comments;
     },
     getCommentCountByParentId: async (_, { parentId }) => {
