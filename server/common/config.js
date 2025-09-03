@@ -13,9 +13,7 @@ export const RESIDENT_PORT = 4005;
 export const AI_PORT = 4006;
 
 export const SECRET_KEY = process.env.JWT_SECRET || "jwt-secret-key";
-export const MONGO_URI =
-  process.env.MONGO_URI
+export const MONGO_URI = process.env.MONGO_URI
 
-export const GEMINI_API_KEY =
-  process.env.GEMINI_API_KEY || "your-gemini-api-key";
-export const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+export const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "your-gemini-api-key";
+export const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-gemini-2.0-flash-lite";

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Container, Card } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
 
 const GET_POST_SUMMARY = gql`
   query GetPostSummary($postId: String!) {
@@ -17,6 +17,14 @@ const SUMMARIZE_POST = gql`
     summarizePost(postId: $postId, force: true) {
       summary
       updatedAt
+    }
+  }
+`;
+
+const GET_USER = gql`
+  query GetUser($userId: ID!) {
+    getUser(id: $userId) {
+      username
     }
   }
 `;
@@ -39,8 +47,48 @@ function GenerateSummaryComponent({ postId }) {
 
   const [isShowing, setIsShowing] = useState(false);
 
+  const [fetchUser] = useLazyQuery(GET_USER);
+
+  const [resolvedText, setResolvedText] = useState("");
+  async function fetchUsername(userId) {
+    const { data } = await fetchUser({ variables: { userId } }, { fetchPolicy: "cache-first" })
+    return data?.getUser?.username
+  }
+
+  async function replaceUsers(input) {
+    const regex = /USER\(([^)]+)\)/g;
+    const matches = [...input.matchAll(regex)];
+
+    const usernames = await Promise.all(
+      matches.map(([, userId]) => fetchUsername(userId))
+    );
+
+    let result = input;
+    matches.forEach((match, i) => {
+      const userId = match[1];
+      const username = usernames[i];
+      result = result.replace(
+        match[0],
+        `[${username}](/profiles/${userId})`
+      );
+    });
+
+    return result;
+  }
+
+  useEffect(() => {
+
+
+    if (summary?.text) {
+      replaceUsers(summary?.text).then(setResolvedText)
+    }
+
+
+  }, [summary]);
+
   useEffect(() => {
     const _summary = data?.getPostSummary;
+
     setSummary({
       text: _summary?.summary,
       date: _summary?.updatedAt
@@ -84,7 +132,7 @@ function GenerateSummaryComponent({ postId }) {
             )}
             {summary?.text && (
               <div className="summary-text">
-                <ReactMarkdown>{summary.text}</ReactMarkdown>
+                <ReactMarkdown>{resolvedText}</ReactMarkdown>
               </div>
             )}
             {!summary?.text && !loading && !loadingNewSummary && (
