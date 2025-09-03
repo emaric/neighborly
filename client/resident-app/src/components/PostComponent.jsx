@@ -1,10 +1,35 @@
-import { Card, Container, Badge, Spinner } from "react-bootstrap";
+import { Card, Container, Placeholder } from "react-bootstrap";
+import UsernameComponent from "./UsernameComponent";
+import CommentCountComponent from "./CommentCountComponent";
 
-function PostComponent({ post, loadingCommentCount }) {
+function PostComponent({ post }) {
   if (!post) {
     return (
-      <Container className="text-center mt-5">
-        <p>Loading post...</p>
+      <Container>
+        <Card className="mt-4 shadow-sm">
+          <Card.Body>
+            <Placeholder as={Card.Title} animation="wave">
+              <Placeholder xs={6} />
+            </Placeholder>
+            <Placeholder as={Card.Subtitle} animation="wave">
+              <Placeholder xs={4} />
+            </Placeholder>
+            <Placeholder as={Card.Text} animation="wave">
+              <Placeholder xs={10} /> <Placeholder xs={8} /> <Placeholder xs={6} />
+            </Placeholder>
+          </Card.Body>
+          <Card.Footer className="text-muted d-flex justify-content-between align-items-center">
+
+            <Placeholder as="span" animation="wave">
+              <Placeholder xs={7} />
+            </Placeholder>
+
+            <Placeholder as="span" animation="wave">
+              <Placeholder xs={7} />
+            </Placeholder>
+
+          </Card.Footer>
+        </Card>
       </Container>
     );
   }
@@ -15,7 +40,7 @@ function PostComponent({ post, loadingCommentCount }) {
         <Card.Body>
           <Card.Title>{post.title}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            By <strong>{post.user.username}</strong>
+            <UsernameComponent userId={post.userId} />
           </Card.Subtitle>
           <Card.Text className="mt-3">{post.content}</Card.Text>
         </Card.Body>
@@ -23,21 +48,7 @@ function PostComponent({ post, loadingCommentCount }) {
           <small>
             Posted on {new Date(Number(post.createdAt)).toLocaleString()}
           </small>
-          <Badge bg="secondary">
-            {loadingCommentCount ? (
-              <Spinner
-                as="span"
-                animation="border"
-                style={{ width: "0.8rem", height: "0.8rem" }}
-                role="status"
-                aria-hidden="true"
-                className="me-1"
-              />
-            ) : (
-              post.comment_count
-            )}{" "}
-            comments
-          </Badge>
+          <CommentCountComponent parentId={post.id} />
         </Card.Footer>
       </Card>
     </Container>
