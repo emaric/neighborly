@@ -5,7 +5,7 @@ import { getPostDetails } from "../postdetails-service.js";
 async function generateSummary(postId) {
   const postDetails = await getPostDetails(postId);
   const summary = await runPrompt(
-    `Summarize this post: ${JSON.stringify(postDetails)}`
+    `Summarize this post so that it's readable by using bullets and other ways to highlight (markdown) important points of the whole thread: ${JSON.stringify(postDetails)}; When refering to a user, use USER(userId) so that it can be easily identified.`
   );
   return summary;
 }
