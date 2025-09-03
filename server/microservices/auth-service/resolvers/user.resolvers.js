@@ -64,16 +64,15 @@ const userResolvers = {
           const field = Object.keys(error.keyPattern)[0];
           errors.push({
             field,
-            message: `The ${field} "${
-              Object.values(error.keyValue)[0]
-            }" is already taken.`,
+            message: `The ${field} "${Object.values(error.keyValue)[0]
+              }" is already taken.`,
           });
         }
 
         if (errors.length > 0) {
           throw new GraphQLError("Validation failed", {
             extensions: {
-              code: "BAD_VITAL_SIGN_INPUT",
+              code: "ERROR_ENCOUNTERED",
               errors,
             },
           });
